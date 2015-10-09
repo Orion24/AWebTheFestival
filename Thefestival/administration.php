@@ -1,5 +1,23 @@
 <?php
-    require_once 'function_db.php';
+    require_once 'function_db_select.php';
+
+    $html = "hell0";
+    /*function get_artist()
+    {
+
+    }*/
+
+    function get_array_comment()
+    {
+        global $html;
+        $array_result = get_comment();
+        $user = get_User_by_id($array_result['idUser'])['pseudo'];
+        $html = "<table><tr><th>Commentaire</th><th>Auteur</th><th>Valider</th><tr>";
+        $html .= "<td>".$array_result['content']."</td>";
+        $html .= "<td>".$user."</td>";
+        $html .= "<td><a href=\"administration.php?idc=".$array_result['idComment'].";valid=1\">Oui</a>/<a href=\"administration.php?idc=".$array_result['idComment']."valid=0\">Non</a></td>";
+        $html .= "</tr></table>";
+    }
     if(!empty($_REQUEST['v']))
     {
         switch ($_REQUEST['v'])
@@ -14,8 +32,14 @@
                 get_user();
                 break;
             case 'c':
-                get_comment();
+                get_array_comment();
+            default :
+              get_array_comment();
+              break;
         }
+    }
+    else {
+        get_array_comment();
     }
 ?>
 <html lang="fr">
@@ -36,18 +60,7 @@
         </header>
         <div class="container">
             <div class="jumbotron">
-                <table>
-                    <tr>
-                        <th>Commentaire</th>
-                        <th>Auteur</th>
-                        <th>Valider</th>
-                    </tr>
-                    <tr>
-                        <td>Test</td>
-                        <td>Admin</td>
-                        <td><a href="administration.php?idc=2&valid=1">Oui</a>/<a href="administration.php?idc=2&valid=0">Non</a></td>
-                    </tr>
-                </table>
+                <?=$html ?>
             </div>
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav sidebar">
