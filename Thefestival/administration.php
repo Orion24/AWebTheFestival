@@ -2,15 +2,21 @@
     require_once 'function_db_select.php';
 
     $html = "hell0";
-    /*function get_artist()
-    {
-
-    }*/
-
-    function get_array_comment()
+    function get_artist()
     {
         global $html;
-        $array_result = get_comment();
+        $array_result = get_array_artist();
+        $html = "<table><tr><th>Nom de l'artiste</th><th>Biographie</th><th>Identifiant de vidéo Youtube</th><tr>";
+        $html .= "<td>".$array_result['nameArtist']."</td>";
+        $html .= "<td>".$array_result['bio']."</td>";
+        $html .= "<td>".$array_result['magicCookieYoutube']."</td>";
+        $html .= "</tr></table>";
+    }
+
+    function get_comment()
+    {
+        global $html;
+        $array_result = get_array_comment();
         $user = get_User_by_id($array_result['idUser'])['pseudo'];
         $html = "<table><tr><th>Commentaire</th><th>Auteur</th><th>Valider</th><tr>";
         $html .= "<td>".$array_result['content']."</td>";
@@ -32,14 +38,14 @@
                 get_user();
                 break;
             case 'c':
-                get_array_comment();
+                get_comment();
             default :
-              get_array_comment();
+              get_comment();
               break;
         }
     }
     else {
-        get_array_comment();
+        get_comment();
     }
 ?>
 <html lang="fr">
@@ -65,22 +71,22 @@
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav sidebar">
                     <li class="sidebar-brand">
-                        <a href="#?v=a">
+                        <a href="http://127.0.0.1/atelierWebFestival/administration.php?v=a">
                             Administration artistes
                         </a>
                     </li>
                     <li class="sidebar-brand">
-                        <a href="#?v=s">
+                        <a href="http://127.0.0.1/atelierWebFestival/administration.php?v=s">
                             Administration horaire
                         </a>
                     </li>
                     <li class="sidebar-brand">
-                        <a href="#?v=u">
+                        <a href="http://127.0.0.1/atelierWebFestival/administration.php?v=u">
                             Administration utilisateurs
                         </a>
                     </li>
                     <li class="sidebar-brand">
-                        <a href="#?v=c">
+                        <a href="http://127.0.0.1/atelierWebFestival/administration.php?v=c">
                             Administration commentaires
                         </a>
                     </li>
