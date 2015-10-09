@@ -1,0 +1,63 @@
+#------------------------------------------------------------
+#        Script MySQL.
+#------------------------------------------------------------
+
+
+#------------------------------------------------------------
+# Table: ARTISTS
+#------------------------------------------------------------
+
+CREATE TABLE ARTISTS(
+        idArtist           Int AUTO_INCREMENT NOT NULL ,
+        nameArtist         Varchar (25) NOT NULL ,
+        bio                Varchar (300) NOT NULL ,
+        magicCookieYoutube Varchar (12) NOT NULL ,
+        PRIMARY KEY (idArtist )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: USERS
+#------------------------------------------------------------
+
+CREATE TABLE USERS(
+        idUser   Int NOT NULL AUTO_INCREMENT,
+        pseudo   Varchar (25) NOT NULL ,
+        password Varchar (20) NOT NULL ,
+        isAdmin  Int NOT NULL ,
+        PRIMARY KEY (idUser )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: SCHEDULE
+#------------------------------------------------------------
+
+CREATE TABLE SCHEDULE(
+        idSchedule Int NOT NULL AUTO_INCREMENT,
+        dateJour   Date NOT NULL ,
+        heureDebut Date NOT NULL ,
+        heureFin   Date NOT NULL ,
+        idUser     Int NOT NULL ,
+        PRIMARY KEY (idSchedule )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Commente
+#------------------------------------------------------------
+
+CREATE TABLE Commente(
+        dateCommentaire Date NOT NULL,
+        content         Varchar (200) NOT NULL ,
+        isArtist        Bool NOT NULL ,
+        idArtist        Int NULL,
+        idUser          Int NOT NULL ,
+        idSchedule      Int NULL,
+        PRIMARY KEY (idArtist ,idUser ,idSchedule )
+)ENGINE=InnoDB;
+
+ALTER TABLE SCHEDULE ADD CONSTRAINT FK_SCHEDULE_idUser FOREIGN KEY (idUser) REFERENCES USERS(idUser);
+ALTER TABLE Commente ADD CONSTRAINT FK_Commente_idArtist FOREIGN KEY (idArtist) REFERENCES ARTISTS(idArtist);
+ALTER TABLE Commente ADD CONSTRAINT FK_Commente_idUser FOREIGN KEY (idUser) REFERENCES USERS(idUser);
+ALTER TABLE Commente ADD CONSTRAINT FK_Commente_idSchedule FOREIGN KEY (idSchedule) REFERENCES SCHEDULE(idSchedule);
