@@ -194,11 +194,15 @@ optgroup {
 }
 table {
     border-spacing: 0;
-    border-collapse: collapse
+    border-collapse: collapse;
+    background-color: transparent;
+    border : 3px white solid;
+    margin: auto;
 }
 td,
 th {
-    padding: 0
+    padding: 3px;
+    border: 2px white solid;
 }
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 
@@ -1423,6 +1427,11 @@ ul {
     margin-bottom: 10px;
     background-color: #181818;
     border-radius: 10px;
+    padding-left: 4px;
+}
+li
+{
+    list-style-type: none;
 }
 .sidebar
 {
@@ -2355,9 +2364,7 @@ pre code {
         margin-left: 0
     }
 }
-table {
-    background-color: transparent
-}
+
 caption {
     padding-top: 8px;
     padding-bottom: 8px;
@@ -2365,7 +2372,8 @@ caption {
     text-align: left
 }
 th {
-    text-align: left
+    text-align: left;
+    color: #337ab7;
 }
 .table {
     width: 100%;
@@ -5125,7 +5133,7 @@ a.badge:hover {
 }
 .comment
 {
-    margin-top: 125px;
+    margin-top: 145px;
     display : block;
     width: 600px;
     height : 100px;

@@ -18,6 +18,7 @@
                 <ul class="nav nav-tabs">
                     <li class="nav-tabs li"><a href="artiste.php">Artiste</a></li>
                     <li class="nav-tabs li"><a href="inscription.php">Inscription</a></li>
+                    <li class="nav-tabs li"><a href="administration.php">Admin</a></li>
                 </ul>
                 <form class="navbar-form navbar-left">
                     <div class="form-group">

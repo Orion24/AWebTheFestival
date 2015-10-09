@@ -1,5 +1,5 @@
 <?php
-    require_once 'connectDb.php';
+    require_once 'function_db.php';
     
     function testArg($tab) //Check if there are empty cells
     {
@@ -15,9 +15,9 @@
     
     function insertUser($pseudo, $pass)
     {
-        $request = getDb()->prepare("INSERT INTO `festival`.`user` (`idUser`, `pseudo`, `password`, `isAdmin`) VALUES (NULL, :pseudo, SHA1(:pass), '0');");
-        $request->bindParam(':pseudo', $pseudo);
-        $request->bindParam(':pass', $pass);
+        $request = getDb()->prepare("INSERT INTO `festival`.`users` (`idUser`, `pseudo`, `password`, `isAdmin`) VALUES (NULL, :pseudo, SHA1(:pass), '0');");
+        $request->bindParam(':pseudo', $pseudo, PDO::PARAM_STR, 25);
+        $request->bindParam(':pass', $pass, PDO::PARAM_STR, 20);
         $request->execute(); 
     }
     
