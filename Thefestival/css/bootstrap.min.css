@@ -1438,6 +1438,7 @@ li
     width: 120px;
     background-color: #181818;
     border-radius: 10px;
+    margin-left: 0px;
 }
 ol ol,
 ol ul,
@@ -4596,7 +4597,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
     .navbar-form .form-group:last-child {
         margin-bottom: 0
     }
-    
+
 }
 @media (min-width: 768px) {
     .navbar-form {
@@ -4608,7 +4609,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
         border: 0;
         -webkit-box-shadow: none;
         box-shadow: none;
-        
+
     }
 }
 .navbar-nav>li>.dropdown-menu {
