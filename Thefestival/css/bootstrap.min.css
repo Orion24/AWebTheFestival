@@ -35,7 +35,7 @@ summary {
     position: relative;
     margin : auto;
     height: 100px;
-    width: 600px;
+    width: 700px;
     border-radius: 10px;
     background-color: #181818;
     text-align: center;
@@ -1435,7 +1435,7 @@ li
 }
 .sidebar
 {
-    width: 120px;
+    width: 145px;
     background-color: #181818;
     border-radius: 10px;
     margin-left: 0px;
@@ -1615,17 +1615,17 @@ pre code {
 }
 @media (min-width: 768px) {
     .container {
-        width: 600px
+        width: 700px
     }
 }
 @media (min-width: 992px) {
     .container {
-        width: 600px
+        width: 700px
     }
 }
 @media (min-width: 1200px) {
     .container {
-        width: 600px
+        width: 700px
     }
 }
 .container-fluid {
@@ -5123,7 +5123,7 @@ a.badge:hover {
     margin-left: 3px
 }
 .jumbotron {
-    width: 475px;
+    width: 550px;
     height : 350px;
     padding-top: 0px;
     padding-bottom: 0px;
@@ -5134,9 +5134,9 @@ a.badge:hover {
 }
 .comment
 {
-    margin-top: 145px;
+    margin-top: 165px;
     display : block;
-    width: 600px;
+    width: 700px;
     height : 100px;
     padding-top: 0px;
     padding-bottom: 0px;
