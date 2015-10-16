@@ -14,7 +14,7 @@ function get_User_by_id($id)
 }
 function get_array_artist()
 {
-  $query = 'SELECT nameArtist, bio, magicCookieYoutube FROM artists';
+  $query = 'SELECT nameArtist, bio, magicCookieYoutube, idArtist FROM artists';
   $answer = getDb()->query($query);//execute the query
   return $answer->fetch(PDO::FETCH_ASSOC);//We make the answer an associotive array
 }

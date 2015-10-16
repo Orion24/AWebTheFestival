@@ -1,5 +1,6 @@
 <?php
     require_once 'function_db_select.php';
+    require_once 'function_db_update.php';
 
     $html = "hell0";
     function get_artist()
@@ -7,9 +8,9 @@
         global $html;
         $array_result = get_array_artist();
         $html = "<table><tr><th>Nom de l'artiste</th><th>Biographie</th><th>Identifiant de vidéo Youtube</th><tr>";
-        $html .= "<td>".$array_result['nameArtist']."</td>";
-        $html .= "<td>".$array_result['bio']."</td>";
-        $html .= "<td>".$array_result['magicCookieYoutube']."</td>";
+        $html .= "<td>".$array_result['nameArtist']."<br/><a href=\"./administration.php?m=a&id=".$array_result['idArtist']."\">Modifier</a></td>";
+        $html .= "<td>".$array_result['bio']."<br/><a href=\"./administration.php?m=b&id=".$array_result['idArtist']."\">Modifier</a></td>";
+        $html .= "<td>".$array_result['magicCookieYoutube']."<br/><a href=\"./administration.php?m=mgcy&id=".$array_result['idArtist']."\">Modifier</a></td>";
         $html .= "</tr></table>";
     }
 
@@ -24,7 +25,33 @@
         $html .= "<td><a href=\"administration.php?idc=".$array_result['idComment'].";valid=1\">Oui</a>/<a href=\"administration.php?idc=".$array_result['idComment']."valid=0\">Non</a></td>";
         $html .= "</tr></table>";
     }
-    if(!empty($_REQUEST['v']))
+
+    function modify_artist($mdify, $id)
+    {
+        global $html;
+        $array_result = get_array_artist();
+        $html = '<form method="post">';
+        switch ($mdify)
+        {
+            case 'a':
+                $html .= '<label for="'.$mdify.'">Artiste : </label><input type=text placeholder="'.$array_result['nameArtist'].'"class=\"form-control\" name="'.$mdify.'">';
+                break;
+            case 'b':
+                $html .= '<label for="'.$mdify.'">Biographie : </label><input type=text placeholder="'.$array_result['bio'].'\"class=\"form-control\" name="'.$mdify.'">';
+                break;
+            case 'mgcy':
+                $html .= '<label for="'.$mdify.'">Magic Cookie Youtube : </label><input type=text placeholder="'.$array_result['mgcy'].'\"class=\"form-control\" name="'.$mdify.'">';
+                break;
+            default :
+              header('Location: administration.php');
+              break;
+        }
+        $html .= '<input type="hidden" name="id" value="'.$id.'">';
+        $html .= '<input type="hidden" name="type" value="'.$mdify.'">';
+        $html .= '<button type="submit" class="btn btn-success" name="modifierChamp">Sauvegarder</button>';
+        $html .= "</form>";
+    }
+    if(isset($_REQUEST['v']))
     {
         switch ($_REQUEST['v'])
         {
@@ -46,6 +73,15 @@
     }
     else {
         get_comment();
+    }
+    if(isset($_REQUEST['m']) && isset($_REQUEST['id']))
+    {
+       modify_artist($_REQUEST['m'],$_REQUEST['id']);
+    }
+    if(isset($_REQUEST['modifierChamp']) && isset($_REQUEST['type']))
+    {
+        modify_artist_db($_REQUEST['type'],$_REQUEST[$_REQUEST['type']],$_REQUEST['id']); //TODO: Requête sans erreur mais pas de modification
+        //header('Location: administration.php');
     }
 ?>
 <html lang="fr">
