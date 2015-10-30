@@ -1,9 +1,12 @@
 <?php
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+    require_once 'function_db_select.php';
+    $artists = "";
+    $array_artist = get_name_artist(5);
+    foreach ($array_artist as $value)
+    {
+      $name = $value['nameArtist'];
+      $artists .= '<li><a href="artists.php?name='.$name.'" style="text-decoration:underline";>'.$name.'</a></li>';
+    }
 ?>
 <html lang="fr">
     <head>
@@ -39,14 +42,11 @@
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav sidebar">
                     <li class="sidebar-brand">
-                        <a href="#">
+                        <a href="artists.php">
                             Artistes
                         </a>
                     </li>
-                    <li>AC/DC</li>
-                    <li>Avenged Sevenfold</li>
-                    <li>Distubed</li>
-                    <li>Five finger Death Punch</li>
+                    <?=$artists ?>
                 </ul>
                 <ul class="sidebar-nav sidebar">
                     <li class="sidebar-brand">

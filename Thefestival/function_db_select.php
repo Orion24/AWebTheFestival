@@ -32,3 +32,11 @@ function get_array_artist_name($name)
     $request->execute();
     return $request->fetch(PDO::FETCH_ASSOC);
 }
+
+function get_name_artist($limit)
+{
+  $request = getDb()->prepare('SELECT nameArtist FROM artists LIMIT :limitArtist');
+  $request->bindParam(':limitArtist', $limit, PDO::PARAM_INT);
+  $request->execute();
+  return $request->fetchAll(PDO::FETCH_ASSOC);
+}
