@@ -6,7 +6,7 @@
     function get_artist()
     {
         global $html;
-        $html = "<table><tr><th>Nom de l'artiste</th><th>Biographie</th><th>Identifiant de vidéo Youtube</th>";
+        $html = "<table><tr><th>Nom de l'artiste</th><th>Biographie</th><th>Identifiant de vidéo Youtube</th><th>Supression de l'artiste</th>";
         $array_result = get_array_all_artist();
         foreach ($array_result as $value)
         {
@@ -14,6 +14,7 @@
            $html .= "<td>".$value['nameArtist']."<br/><a href=\"./administration.php?m=a&id=".$value['idArtist']."\">Modifier</a></td>";
            $html .= "<td>".$value['bio']."<br/><a href=\"./administration.php?m=b&id=".$value['idArtist']."\">Modifier</a></td>";
            $html .= "<td>".$value['magicCookieYoutube']."<br/><a href=\"./administration.php?m=mgcy&id=".$value['idArtist']."\">Modifier</a></td>";
+           $html .= '<td><form method="post"><button class="btn btn-danger" name="Supression">Supression</button><input type="hidden" name="id" value="'.$value['idArtist'].'"/></from></td>';
            $html .= "</tr>";
         }
         $html .= "</table>";
@@ -23,12 +24,15 @@
     {
         global $html;
         $array_result = get_array_comment();
-        $user = get_User_by_id($array_result['idUser']);
-        $html = "<table><tr><th>Commentaire</th><th>Auteur</th><th>Valider</th><tr>";
-        $html .= "<td>".$array_result['content']."</td>";
-        $html .= "<td>".$user."</td>";
-        $html .= "<td><a href=\"administration.php?idc=".$array_result['idComment'].";valid=1\">Oui</a>/<a href=\"administration.php?idc=".$array_result['idComment']."valid=0\">Non</a></td>";
-        $html .= "</tr></table><br/>";
+        $html = "<table><tr><th>Commentaire</th><th>Auteur</th><th>Valider</th>";
+        foreach ($array_result as $value) {
+          $user = get_User_by_id($value['idUser']);
+          $html .= "<tr><td>".$value['content']."</td>"; //TODO pas d'index
+          $html .= "<td>".$user."</td>";
+          $html .= "<td><a href=\"administration.php?idc=".$value['idComment'].";valid=1\">Oui</a>/<a href=\"administration.php?idc=".$value['idComment']."valid=0\">Non</a></td>";
+          $html .= "</tr>";
+        }
+        $html .= "</table><br/>";
     }
 
 
