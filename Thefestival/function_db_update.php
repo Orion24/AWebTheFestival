@@ -15,7 +15,7 @@
             $name_column = "magicCookieYoutube";
             break;
     }
-    $query = getDb()->prepare("UPDATE festival.artists SET ".$name_column." = :value WHERE artists.".$name_column." = :id;");
+    $query = getDb()->prepare("UPDATE festival.artists SET ".$name_column." = :value WHERE artists.idArtist = :id;");
     $query->bindParam(':value', $value, PDO::PARAM_STR);
     $query->bindParam(':id', $id, PDO::PARAM_INT);
     $query->execute();

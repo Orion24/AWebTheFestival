@@ -34,13 +34,13 @@
         switch ($mdify)
         {
             case 'a':
-                $html .= '<label for="'.$mdify.'">Artiste : </label><input type=text placeholder="'.$array_result['nameArtist'].'"class=\"form-control\" name="'.$mdify.'">';
+                $html .= '<label for="'.$mdify.'">Artiste : </label><input type=text placeholder="'.$array_result['nameArtist'].'"class="form-control" name="'.$mdify.'">';
                 break;
             case 'b':
-                $html .= '<label for="'.$mdify.'">Biographie : </label><input type=text placeholder="'.$array_result['bio'].'\"class=\"form-control\" name="'.$mdify.'">';
+                $html .= '<label for="'.$mdify.'">Biographie : </label><br/><textarea name="'.$mdify.'" class="form-control" style="height: 138px; width: 524px;">'.$array_result['bio'].'</textarea><br/>';
                 break;
             case 'mgcy':
-                $html .= '<label for="'.$mdify.'">Magic Cookie Youtube : </label><input type=text placeholder="'.$array_result['mgcy'].'\"class=\"form-control\" name="'.$mdify.'">';
+                $html .= '<label for="'.$mdify.'">Magic Cookie Youtube : </label><input type=text placeholder="'.$array_result['magicCookieYoutube'].'" class="form-control" name="'.$mdify.'" style="width: 130px;">';
                 break;
             default :
               header('Location: administration.php');
@@ -81,7 +81,7 @@
     if(isset($_REQUEST['modifierChamp']) && isset($_REQUEST['type']))
     {
         modify_artist_db($_REQUEST['type'],$_REQUEST[$_REQUEST['type']],$_REQUEST['id']); //TODO: Requête sans erreur mais pas de modification
-        //header('Location: administration.php');
+        header('Location: administration.php');
     }
 ?>
 <html lang="fr">
