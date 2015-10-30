@@ -6,10 +6,11 @@
     function get_artist()
     {
         global $html;
-        $html = "<table><tr><th>Nom de l'artiste</th><th>Biographie</th><th>Identifiant de vidéo Youtube</th><tr>";
+        $html = "<table><tr><th>Nom de l'artiste</th><th>Biographie</th><th>Identifiant de vidéo Youtube</th>";
         $array_result = get_array_all_artist();
         foreach ($array_result as $value)
         {
+           $html .= "<tr>";
            $html .= "<td>".$value['nameArtist']."<br/><a href=\"./administration.php?m=a&id=".$value['idArtist']."\">Modifier</a></td>";
            $html .= "<td>".$value['bio']."<br/><a href=\"./administration.php?m=b&id=".$value['idArtist']."\">Modifier</a></td>";
            $html .= "<td>".$value['magicCookieYoutube']."<br/><a href=\"./administration.php?m=mgcy&id=".$value['idArtist']."\">Modifier</a></td>";
@@ -22,7 +23,7 @@
     {
         global $html;
         $array_result = get_array_comment();
-        $user = get_User_by_id($array_result['idUser'])['pseudo'];
+        $user = get_User_by_id($array_result['idUser']);
         $html = "<table><tr><th>Commentaire</th><th>Auteur</th><th>Valider</th><tr>";
         $html .= "<td>".$array_result['content']."</td>";
         $html .= "<td>".$user."</td>";
@@ -30,10 +31,11 @@
         $html .= "</tr></table><br/>";
     }
 
+
     function modify_artist($mdify, $id)
     {
         global $html;
-        $array_result = get_array_artist($id);
+        $array_result = get_array_artist_id($id);
         $html = '<form method="post">';
         switch ($mdify)
         {
@@ -99,9 +101,10 @@
             <h1>The Festival</h1>
             <nav>
                 <ul class="nav nav-tabs">
-                    <li class="nav-tabs li"><a href="artiste.php">Artiste</a></li>
+                    <li class="nav-tabs li"><a href="artists.php">Artiste</a></li>
                     <li class="nav-tabs li"><a href="index.php">Acceuil</a></li>
                 </ul>
+                <a href="addArtist.php">Ajouter un artiste</a>
             </nav>
         </header>
         <div class="container">

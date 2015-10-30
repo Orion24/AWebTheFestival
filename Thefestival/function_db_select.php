@@ -18,10 +18,17 @@ function get_array_all_artist()
   $answer = getDb()->query($query);//execute the query
   return $answer->fetchAll(PDO::FETCH_ASSOC);//We make the answer an associotive array
 }
-function get_array_artist($idArtist)
+function get_array_artist_id($idArtist)
 {
   $request = getDb()->prepare('SELECT nameArtist, bio, magicCookieYoutube, idArtist FROM artists WHERE idArtist = :idArtist');
   $request->bindParam(':idArtist', $idArtist, PDO::PARAM_INT);
   $request->execute();
   return $request->fetch(PDO::FETCH_ASSOC);
+}
+function get_array_artist_name($name)
+{
+    $request = getDb()->prepare('SELECT nameArtist, bio, magicCookieYoutube, idArtist FROM artists WHERE nameArtist = :nameArtist');
+    $request->bindParam(':nameArtist', $name, PDO::PARAM_STR);
+    $request->execute();
+    return $request->fetch(PDO::FETCH_ASSOC);
 }
