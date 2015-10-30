@@ -12,9 +12,16 @@ function get_User_by_id($id)
   $answer = getDb()->query($query);//execute the query
   return $answer->fetch(PDO::FETCH_ASSOC);//We make the answer an associotive array
 }
-function get_array_artist()
+function get_array_all_artist()
 {
   $query = 'SELECT nameArtist, bio, magicCookieYoutube, idArtist FROM artists';
   $answer = getDb()->query($query);//execute the query
-  return $answer->fetch(PDO::FETCH_ASSOC);//We make the answer an associotive array
+  return $answer->fetchAll(PDO::FETCH_ASSOC);//We make the answer an associotive array
+}
+function get_array_artist($idArtist)
+{
+  $request = getDb()->prepare('SELECT nameArtist, bio, magicCookieYoutube, idArtist FROM artists WHERE idArtist = :idArtist');
+  $request->bindParam(':idArtist', $idArtist, PDO::PARAM_INT);
+  $request->execute();
+  return $request->fetch(PDO::FETCH_ASSOC);
 }

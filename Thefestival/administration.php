@@ -6,12 +6,16 @@
     function get_artist()
     {
         global $html;
-        $array_result = get_array_artist();
         $html = "<table><tr><th>Nom de l'artiste</th><th>Biographie</th><th>Identifiant de vidéo Youtube</th><tr>";
-        $html .= "<td>".$array_result['nameArtist']."<br/><a href=\"./administration.php?m=a&id=".$array_result['idArtist']."\">Modifier</a></td>";
-        $html .= "<td>".$array_result['bio']."<br/><a href=\"./administration.php?m=b&id=".$array_result['idArtist']."\">Modifier</a></td>";
-        $html .= "<td>".$array_result['magicCookieYoutube']."<br/><a href=\"./administration.php?m=mgcy&id=".$array_result['idArtist']."\">Modifier</a></td>";
-        $html .= "</tr></table>";
+        $array_result = get_array_all_artist();
+        foreach ($array_result as $value)
+        {
+           $html .= "<td>".$value['nameArtist']."<br/><a href=\"./administration.php?m=a&id=".$value['idArtist']."\">Modifier</a></td>";
+           $html .= "<td>".$value['bio']."<br/><a href=\"./administration.php?m=b&id=".$value['idArtist']."\">Modifier</a></td>";
+           $html .= "<td>".$value['magicCookieYoutube']."<br/><a href=\"./administration.php?m=mgcy&id=".$value['idArtist']."\">Modifier</a></td>";
+           $html .= "</tr>";
+        }
+        $html .= "</table>";
     }
 
     function get_comment()
@@ -23,13 +27,13 @@
         $html .= "<td>".$array_result['content']."</td>";
         $html .= "<td>".$user."</td>";
         $html .= "<td><a href=\"administration.php?idc=".$array_result['idComment'].";valid=1\">Oui</a>/<a href=\"administration.php?idc=".$array_result['idComment']."valid=0\">Non</a></td>";
-        $html .= "</tr></table>";
+        $html .= "</tr></table><br/>";
     }
 
     function modify_artist($mdify, $id)
     {
         global $html;
-        $array_result = get_array_artist();
+        $array_result = get_array_artist($id);
         $html = '<form method="post">';
         switch ($mdify)
         {
@@ -101,7 +105,7 @@
             </nav>
         </header>
         <div class="container">
-            <div class="jumbotron">
+            <div class="jumbotron" style="height : 370px;overflow-y: scroll;">
                 <?=$html ?>
             </div>
             <div id="sidebar-wrapper">
