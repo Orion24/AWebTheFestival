@@ -37,6 +37,7 @@
                      <li class="nav-tabs li"><a href="administration.php">Admin</a></li>
                      <li class="nav-tabs li"><a href="index.php">Acceuil</a></li>
                  </ul>
+                 <?php if(isset($_REQUEST['name'])){ echo '<a href="artists.php">Retour à la liste des artistes</a>';}?>
              </nav>
          </header>
          <div class="container">
