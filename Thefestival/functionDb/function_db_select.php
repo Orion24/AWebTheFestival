@@ -12,6 +12,14 @@ function get_User_by_id($id)
   $answer = getDb()->query($query);//execute the query
   return $answer->fetch(PDO::FETCH_ASSOC);//We make the answer an associotive array
 }
+function login_user($pseudo, $mdp)
+{
+  $request = getDb()->prepare('SELECT pseudo, idUser, isAdmin FROM users WHERE pseudo = :pseudo AND password = SHA1(:mdp)');
+  $request->bindParam(':pseudo', $pseudo, PDO::PARAM_STR);
+  $request->bindParam(':mdp', $mdp, PDO::PARAM_STR);
+  $request->execute();
+  return $request->fetch(PDO::FETCH_ASSOC);
+}
 function get_array_all_artist()
 {
   $query = 'SELECT nameArtist, bio, magicCookieYoutube, idArtist FROM artists';

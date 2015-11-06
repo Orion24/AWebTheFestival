@@ -16,6 +16,7 @@
     {
         insertUser( $_REQUEST['pseudo'], $_REQUEST['pass']);
         header('Location: index.php');
+        exit();
     }
 ?>
 <html lang="fr">

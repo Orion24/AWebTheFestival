@@ -1,5 +1,13 @@
 <?php
     require_once './functionDb/function_db_select.php';
+    session_start();
+    if(isset($_SESSION['isAdmin']))
+    {
+      $isAdmin = $_SESSION['isAdmin'];
+    }
+    else {
+      $isAdmin = 0;
+    }
     $artists = "";
     $array_artist = get_name_artist(5);
     foreach ($array_artist as $value)
@@ -21,16 +29,16 @@
                 <ul class="nav nav-tabs">
                     <li class="nav-tabs li"><a href="artiste.php">Artiste</a></li>
                     <li class="nav-tabs li"><a href="inscription.php">Inscription</a></li>
-                    <li class="nav-tabs li"><a href="administration.php">Admin</a></li>
+                    <?php if($isAdmin == 1){echo '<li class="nav-tabs li"><a href="administration.php">Admin</a></li>';}?>
                 </ul>
-                <form class="navbar-form navbar-left">
+                <form class="navbar-form navbar-left" action="login.php" method="post">
                     <div class="form-group">
-                        <input type="text" placeholder="Pseudo" class="form-control">
+                        <input type="text" placeholder="Pseudo" class="form-control" name="pseudo">
                     </div>
                     <div class="form-group">
-                        <input type="password" placeholder="Password" class="form-control">
+                        <input type="password" placeholder="Password" class="form-control" name="password">
                     </div>
-                    <button type="submit" class="btn btn-success">Connexion</button>
+                    <button type="submit" class="btn btn-success" name="Connexion">Connexion</button>
                     <input type="button" onclick="location.href='inscription.php';" value="Inscription" class="btn btn-default"/>
                 </form>
             </nav>
