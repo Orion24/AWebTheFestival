@@ -28,7 +28,7 @@
         foreach ($array_result as $value) {
           $user = get_User_by_id($value['idUser']);
           $html .= "<tr><td>".$value['content']."</td>"; //TODO pas d'index
-          $html .= "<td>".$user."</td>";
+          $html .= "<td>".$user['pseudo']."</td>";
           $html .= "<td><a href=\"administration.php?idc=".$value['idComment'].";valid=1\">Oui</a>/<a href=\"administration.php?idc=".$value['idComment']."valid=0\">Non</a></td>";
           $html .= "</tr>";
         }
