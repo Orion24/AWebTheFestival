@@ -1,4 +1,5 @@
 <?php
+  require_once 'connectDb.php';
   function insertUser($pseudo, $pass)
   {
       $request = getDb()->prepare("INSERT INTO `festival`.`users` (`idUser`, `pseudo`, `password`, `isAdmin`) VALUES (NULL, :pseudo, SHA1(:pass), '0');");

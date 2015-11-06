@@ -1,5 +1,5 @@
 <?php
-    require_once 'function_db_select.php';
+    require_once './functionDb/function_db_select.php';
     $artists = "";
     $array_artist = get_name_artist(5);
     foreach ($array_artist as $value)

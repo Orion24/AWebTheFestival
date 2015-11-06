@@ -1,5 +1,5 @@
 <?php
-    include_once 'function_db_select.php';
+    include_once './functionDb/function_db_select.php';
     $html = "hell0";
     if(isset($_REQUEST['name']))
     {

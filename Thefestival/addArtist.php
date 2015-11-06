@@ -1,6 +1,5 @@
 <?php
-  require_once 'function_db_insert.php';
-  require_once 'connectDb.php';
+  require_once './functionDb/function_db_insert.php';
   if(isset($_REQUEST['Ajout']))
   {
     insert_artist($_REQUEST['nom'], $_REQUEST['bio'], $_REQUEST['mgcy']);

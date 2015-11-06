@@ -1,6 +1,5 @@
 <?php
-    require_once 'connectDb.php';
-    require_once 'function_db_insert.php';
+    require_once './functionDb/function_db_insert.php';
     function testArg($tab) //Check if there are empty cells
     {
         foreach($tab as $value)

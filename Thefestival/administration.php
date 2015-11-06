@@ -1,6 +1,6 @@
 <?php
-    require_once 'function_db_select.php';
-    require_once 'function_db_update.php';
+    require_once './functionDb/function_db_select.php';
+    require_once './functionDb/function_db_update.php';
 
     $html = "hell0";
     function get_artist()
