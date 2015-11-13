@@ -1,4 +1,11 @@
 <?php
+    session_start();
+    if(empty($_SESSION['pseudo']))
+   {
+       session_write_close(); // to be sure
+       header('Location: ./login.php');
+       exit();
+   }
     require_once './functionDb/function_db_select.php';
     require_once './functionDb/function_db_update.php';
 
@@ -27,7 +34,7 @@
         $html = "<table><tr><th>Commentaire</th><th>Auteur</th><th>Valider</th>";
         foreach ($array_result as $value) {
           $user = get_User_by_id($value['idUser']);
-          $html .= "<tr><td>".$value['content']."</td>"; //TODO pas d'index
+          $html .= "<tr><td>".$value['content']."</td>";
           $html .= "<td>".$user['pseudo']."</td>";
           $html .= "<td><a href=\"administration.php?idc=".$value['idComment'].";valid=1\">Oui</a>/<a href=\"administration.php?idc=".$value['idComment']."valid=0\">Non</a></td>";
           $html .= "</tr>";
@@ -90,7 +97,7 @@
     }
     if(isset($_REQUEST['modifierChamp']) && isset($_REQUEST['type']))
     {
-        modify_artist_db($_REQUEST['type'],$_REQUEST[$_REQUEST['type']],$_REQUEST['id']); //TODO: Requête sans erreur mais pas de modification
+        modify_artist_db($_REQUEST['type'],$_REQUEST[$_REQUEST['type']],$_REQUEST['id']);
         header('Location: administration.php');
     }
 ?>

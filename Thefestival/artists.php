@@ -34,7 +34,8 @@
              <h1>The Festival</h1>
              <nav>
                  <ul class="nav nav-tabs">
-                     <li class="nav-tabs li"><a href="administration.php">Admin</a></li>
+                   <?php if(!isset($_SESSION['pseudo'])){ echo '<li class="nav-tabs li"><a href="inscription.php">Inscription</a></li>';}
+                    if($isAdmin == 1){echo '<li class="nav-tabs li"><a href="administration.php">Admin</a></li>';}?>
                      <li class="nav-tabs li"><a href="index.php">Acceuil</a></li>
                  </ul>
                  <?php if(isset($_REQUEST['name'])){ echo '<a href="artists.php">Retour à la liste des artistes</a>';}?>
