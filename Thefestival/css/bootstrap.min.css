@@ -5137,14 +5137,14 @@ a.badge:hover {
     margin-top: 165px;
     display : block;
     width: 700px;
-    height : 100px;
-    padding-top: 0px;
-    padding-bottom: 0px;
+    height : 180px;
+    padding-top: 10px;
+    padding-bottom: 5px;
     margin-bottom: 30px;
     color: inherit;
     border-radius: 10px;
     background-color: #181818;
-    padding-left: 5px;
+    padding-left: 15px;
 }
 .jumbotron .h1,
 .jumbotron h1 {

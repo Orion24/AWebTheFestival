@@ -16,3 +16,13 @@
     $request->bindParam(':mgcy', $mgcy, PDO::PARAM_STR, 12);
     $request->execute();
   }
+
+  function insert_comment_artist($idUser, $idArtist, $content)
+  {
+       $request = getDb()->prepare("INSERT INTO `festival`.`comment` (`idComment`, `idUser`, `idSchedule`, `idArtist`, `dateCommentaire`, `content`, `isArtist`) VALUES (NULL, ':idUser', '', ':idArtist', ':date', ':content', '1');");
+       $request->bindParam(':content', $content, PDO::PARAM_STR, 200);
+       $request->bindParam(':idArtist', $idArtist, PDO::PARAM_INT);
+       $request->bindParam(':idUser', $idUser, PDO::PARAM_INT);
+       $request->bindParam(':date', date("Y-m-j"), PDO::PARAM_STR);
+       $request->execute();
+  }

@@ -1,6 +1,25 @@
 <?php
     include_once './functionDb/function_db_select.php';
+    include_once './functionDb/function_db_insert.php';
     $html = "hell0";
+    session_start();
+    function add_comment($content, $idArtist)
+    {
+       insert_comment_artist($_SESSION['idUser'], $idArtist, $content);
+       session_write_close();
+    }
+    function get_comment()
+    {
+        $tab = get_array_comment_artist($_REQUEST['name']); //TODO : Donner l'id et pas le nom
+        $string = "<table><th>Auteur</th><th>Contenu</th><th>Date</th>";
+        foreach ($tab as $value) {
+          $string .= "<tr><td>".get_User_by_id($value['idUser'])['pseudo']."</td>";
+          $string .= "<td>".$value['content']."</td>";
+          $string .= "<td>".$value['dateCommentaire']."</td></tr>";
+        }
+        $string .= "</table>";
+        return $string;
+    }
     if(isset($_REQUEST['name']))
     {
       global $html;
@@ -45,6 +64,13 @@
              <div class="jumbotron" style="height : 370px;overflow-y: scroll; width : 700px;">
                  <?=$html ?>
              </div>
+             <?php
+                if(isset($_REQUEST['name']))
+                {
+                  echo '<div class="comment" style="margin-top : 400px;">';
+                  echo get_comment();
+                  echo '</div>';
+                }?>
          </div>
      </body>
  </html>

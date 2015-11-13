@@ -9,6 +9,7 @@
       if ($userlogin != false) {
           $_SESSION['pseudo'] = $userlogin['pseudo'];
           $_SESSION['isAdmin'] = $userlogin['isAdmin'];
+          $_SESSION['idUser'] = $userlogin['idUser'];
           header('Location: ./index.php');
           exit();
       }

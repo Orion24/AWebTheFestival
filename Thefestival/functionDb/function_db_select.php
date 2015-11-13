@@ -6,6 +6,13 @@ function get_array_comment()
   $answer = getDb()->query($query);//execute the query
   return $answer->fetchAll(PDO::FETCH_ASSOC);//We make the answer an associotive array
 }
+function get_array_comment_artist($idArtist)
+{
+  $request = getDb()->prepare('SELECT content, idUser, dateCommentaire FROM comment WHERE isArtist=1 AND idArtist=:idArtit');
+  $request->bindParam(':idArtist', $idArtist, PDO::PARAM_INT);
+  $request->execute();
+  return $request->fetchAll(PDO::FETCH_ASSOC);//We make the answer an associotive array
+}
 function get_User_by_id($id)
 {
   $query = 'SELECT pseudo FROM users WHERE idUser = '.$id;
