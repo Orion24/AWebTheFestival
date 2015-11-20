@@ -3,6 +3,8 @@
     include_once './functionDb/function_db_insert.php';
     $html = "hell0";
     session_start();
+    $isAdmin = isset($_REQUEST['isAdmin']) ? $_REQUEST['isAdmin'] : false;
+
     function add_comment($content, $idArtist)
     {
        insert_comment_artist($_SESSION['idUser'], $idArtist, $content);
@@ -10,15 +12,22 @@
     }
     function get_comment()
     {
-        $tab = get_array_comment_artist($_REQUEST['name']); //TODO : Donner l'id et pas le nom
-        $string = "<table><th>Auteur</th><th>Contenu</th><th>Date</th>";
-        foreach ($tab as $value) {
-          $string .= "<tr><td>".get_User_by_id($value['idUser'])['pseudo']."</td>";
-          $string .= "<td>".$value['content']."</td>";
-          $string .= "<td>".$value['dateCommentaire']."</td></tr>";
+        $idArtist = get_idArtist_by_name($_REQUEST['name']);
+        $tab = get_array_comment_artist($idArtist['idArtist']);
+        if(count($tab) > 0)
+        {
+          $string = "<table><th>Auteur</th><th>Contenu</th><th>Date</th>";
+          foreach ($tab as $value) {
+            $string .= "<tr><td>".get_User_by_id($value['idUser'])['pseudo']."</td>";
+            $string .= "<td>".$value['content']."</td>";
+            $string .= "<td>".$value['dateCommentaire']."</td></tr>";
+          }
+          $string .= "</table>";
+          return $string;
         }
-        $string .= "</table>";
-        return $string;
+        else {
+          return "<h1>Pas de commentaire pour le moment</h1>";
+        }
     }
     if(isset($_REQUEST['name']))
     {
