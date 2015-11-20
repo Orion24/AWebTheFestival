@@ -8,8 +8,30 @@
    }
     require_once './functionDb/function_db_select.php';
     require_once './functionDb/function_db_update.php';
+    require_once './functionDb/function_db_delete.php';
 
     $html = "hell0";
+
+    function get_user()
+    {
+        global $html;
+        $html = "<table><tr><th>Nom de l'utilisateur</th><th>Supprimer le compte</th><th>Promouvoir administrateur</th></tr>";
+        $array_result = get_user_info();
+        foreach ($array_result as $value) {
+           $html .= "<tr>";
+           $html .= "<td>".$value['pseudo']."</td>";
+           $html .= '<td><button class="btn btn-danger" name="SupressionUser" Onclick="window.location.href=\'administration.php?delete='.$value['idUser'].'\'">Supression</button>';
+           if($value['isAdmin'] == 0)
+           {
+             $html .= '<td><button class="btn btn-warning" name="Promouvoir" Onclick="window.location.href=\'administration.php?promote='.$value['idUser'].'\'">Promouvoir</button></td>';
+           }
+           else {
+             $html .= "<td>Déjà administrateur</td>";
+           }
+           $html .= "<tr>";
+        }
+        $html .= "</table>";
+    }
     function get_artist()
     {
         global $html;
@@ -21,7 +43,7 @@
            $html .= "<td>".$value['nameArtist']."<br/><a href=\"./administration.php?m=a&id=".$value['idArtist']."\">Modifier</a></td>";
            $html .= "<td>".$value['bio']."<br/><a href=\"./administration.php?m=b&id=".$value['idArtist']."\">Modifier</a></td>";
            $html .= "<td>".$value['magicCookieYoutube']."<br/><a href=\"./administration.php?m=mgcy&id=".$value['idArtist']."\">Modifier</a></td>";
-           $html .= '<td><form method="post"><button class="btn btn-danger" name="Supression">Supression</button><input type="hidden" name="id" value="'.$value['idArtist'].'"/></from></td>';
+           $html .= '<td><form method="post"><button class="btn btn-danger" name="SupressionArtist">Supression</button><input type="hidden" name="id" value="'.$value['idArtist'].'"/></from></td>';
            $html .= "</tr>";
         }
         $html .= "</table>";
@@ -61,6 +83,7 @@
                 break;
             default :
               header('Location: administration.php');
+              exit();
               break;
         }
         $html .= '<input type="hidden" name="id" value="'.$id.'">';
@@ -100,6 +123,17 @@
         modify_artist_db($_REQUEST['type'],$_REQUEST[$_REQUEST['type']],$_REQUEST['id']);
         header('Location: administration.php');
     }
+    /*
+        On vérifie que le paramètre passé dans l'url est bien un entier car l'identifiant est un entier
+     */
+    if(isset($_REQUEST['promote']) && is_numeric($_REQUEST['promote']))
+    {
+        promote_user($_REQUEST['promote']);
+    }
+    if(isset($_REQUEST['delete']) && is_numeric($_REQUEST['delete']))
+    {
+       delete_user($_REQUEST['delete']);
+    }
 ?>
 <html lang="fr">
     <head>
@@ -119,7 +153,7 @@
             </nav>
         </header>
         <div class="container">
-            <div class="jumbotron" style="height : 370px;overflow-y: scroll;">
+            <div class="jumbotron" style="height : 470px;overflow-y: scroll;">
                 <?=$html ?>
             </div>
             <div id="sidebar-wrapper">

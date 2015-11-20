@@ -20,3 +20,10 @@
     $query->bindParam(':id', $id, PDO::PARAM_INT);
     $query->execute();
   }
+
+  function promote_user($id)
+  {
+    $query = getDb()->prepare("UPDATE festival.users SET isAdmin = 1 WHERE idUser = :id;");
+    $query->bindParam(':id', $id, PDO::PARAM_INT);
+    $query->execute();
+  }

@@ -1,5 +1,12 @@
 <?php
 require_once 'connectDb.php';
+
+function get_user_info()
+{
+  $query = 'SELECT pseudo, isAdmin, idUser FROM users';
+  $answer = getDb()->query($query);//execute the query
+  return $answer->fetchAll(PDO::FETCH_ASSOC);//We make the answer an associotive array
+}
 function get_array_comment()
 {
   $query = 'SELECT content, idUser, idComment FROM comment';
