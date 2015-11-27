@@ -38,9 +38,15 @@
     {
       global $html;
       $array_result = get_array_artist_name($_REQUEST['name']);
-      $html = "<h1>".$array_result['nameArtist']."</h1>";
-      $html .= "<p>".$array_result['bio']."</p>";
-      $html .= '<p><iframe width="420" height="315" src="https://www.youtube.com/embed/'.$array_result['magicCookieYoutube'].'" frameborder="0" allowfullscreen></iframe></p>';
+      if($array_result != false)
+      {
+        $html = "<h1>".$array_result['nameArtist']."</h1>";
+        $html .= "<p>".$array_result['bio']."</p>";
+        $html .= '<p><iframe width="420" height="315" src="https://www.youtube.com/embed/'.$array_result['magicCookieYoutube'].'" frameborder="0" allowfullscreen></iframe></p>';
+      }
+      else {
+        $html = "<h1>Pas d'artiste sous ce nom là.</h1>";
+      }
     }
     else {
       global $html;
