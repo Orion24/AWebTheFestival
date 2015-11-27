@@ -1,9 +1,4 @@
 <?php
-    /*
-     * Auteur : Bertrand Nicolas
-     * Date : 27.11.2011-2015
-     * Version : 0.8
-     */
     session_start();
     if(empty($_SESSION['pseudo']))
    {
@@ -69,10 +64,6 @@
         $html .= "</table><br/>";
     }
 
-    function delete_comment($idComment)
-    {
-
-    }
 
     function modify_artist($mdify, $id)
     {
@@ -142,10 +133,6 @@
     if(isset($_REQUEST['delete']) && is_numeric($_REQUEST['delete']))
     {
        delete_user($_REQUEST['delete']);
-    }
-    if(isset($_REQUEST['validComment']) && is_numeric($_REQUEST['validComment']))
-    {
-
     }
 ?>
 <html lang="fr">

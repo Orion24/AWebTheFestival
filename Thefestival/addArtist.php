@@ -1,9 +1,4 @@
 <?php
-  /*
-   * Auteur : Bertrand Nicolas
-   * Date : 27.11.2011-2015
-   * Version : 0.8
-   */
   require_once './functionDb/function_db_insert.php';
   if(isset($_REQUEST['Ajout']))
   {

@@ -1,9 +1,4 @@
 <?php
-/*
- * Auteur : Bertrand Nicolas
- * Date : 27.11.2011-2015
- * Version : 0.8
- */
   require_once 'connectDb.php';
   function modify_artist_db($type,$value,$id)
   {
