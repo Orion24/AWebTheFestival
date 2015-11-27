@@ -1,10 +1,15 @@
 <?php
-  require_once './functionDb/function_db_insert.php';
-  if(isset($_REQUEST['Ajout']))
-  {
-    insert_artist($_REQUEST['nom'], $_REQUEST['bio'], $_REQUEST['mgcy']);
-    header('Location: administration.php');
-  }
+    /*
+    * Auteur : Bertrand Nicolas
+    * Date : 27.11.2015
+    * Version : 0.8
+     */
+    require_once './functionDb/function_db_insert.php';
+    if(isset($_REQUEST['Ajout']))
+    {
+      insert_artist($_REQUEST['nom'], $_REQUEST['bio'], $_REQUEST['mgcy']);
+      header('Location: administration.php');
+    }
  ?>
 <html lang="fr">
     <head>

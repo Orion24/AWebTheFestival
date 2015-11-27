@@ -1,26 +1,31 @@
 <?php
-  require_once './functionDb/function_db_select.php';
-  $nom = "";
-  session_start();
-  if(isset($_REQUEST['Connexion']))
-  {
-      $userlogin = login_user($_REQUEST['pseudo'], $_REQUEST['password']);
-      $nom = $_REQUEST['pseudo'];
-      if ($userlogin != false) {
-          $_SESSION['pseudo'] = $userlogin['pseudo'];
-          $_SESSION['isAdmin'] = $userlogin['isAdmin'];
-          $_SESSION['idUser'] = $userlogin['idUser'];
-          header('Location: ./index.php');
-          exit();
-      }
-  }
-  if(isset($_REQUEST['deconnect']) && $_REQUEST['deconnect'] == "yes")
-  {
-      session_destroy();
-      session_write_close(); // to be sure
-      header('Location: ./index.php');
-      exit();
-  }
+    /*
+    * Auteur : Bertrand Nicolas
+    * Date : 27.11.2015
+    * Version : 0.8
+     */
+    require_once './functionDb/function_db_select.php';
+    $nom = "";
+    session_start();
+    if(isset($_REQUEST['Connexion']))
+    {
+        $userlogin = login_user($_REQUEST['pseudo'], $_REQUEST['password']);
+        $nom = $_REQUEST['pseudo'];
+        if ($userlogin != false) {
+            $_SESSION['pseudo'] = $userlogin['pseudo'];
+            $_SESSION['isAdmin'] = $userlogin['isAdmin'];
+            $_SESSION['idUser'] = $userlogin['idUser'];
+            header('Location: ./index.php');
+            exit();
+        }
+    }
+    if(isset($_REQUEST['deconnect']) && $_REQUEST['deconnect'] == "yes")
+    {
+        session_destroy();
+        session_write_close(); // to be sure
+        header('Location: ./index.php');
+        exit();
+    }
 ?>
 <html lang="fr">
     <head>

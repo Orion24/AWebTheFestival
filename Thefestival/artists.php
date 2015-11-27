@@ -1,4 +1,9 @@
 <?php
+    /*
+    * Auteur : Bertrand Nicolas
+    * Date : 27.11.2015
+    * Version : 0.8
+     */
     include_once './functionDb/function_db_select.php';
     include_once './functionDb/function_db_insert.php';
     $html = "hell0";

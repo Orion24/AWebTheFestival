@@ -1,4 +1,9 @@
 <?php
+    /*
+    * Auteur : Bertrand Nicolas
+    * Date : 27.11.2015
+    * Version : 0.8
+     */
     require_once './functionDb/function_db_select.php';
     session_start();
     $isAdmin = 0;
