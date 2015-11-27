@@ -50,7 +50,7 @@
     }
     function get_array_all_artist()
     {
-      $query = 'SELECT nameArtist, bio, magicCookieYoutube, idArtist FROM artists';
+      $query = 'SELECT nameArtist, bio, magicCookieYoutube, idArtist FROM artists ORDER BY nameArtist';
       $answer = getDb()->query($query);//execute the query
       return $answer->fetchAll(PDO::FETCH_ASSOC);//We make the answer an associotive array
     }

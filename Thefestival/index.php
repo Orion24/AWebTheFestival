@@ -31,7 +31,7 @@
             <h1>The Festival</h1>
             <nav>
                 <ul class="nav nav-tabs">
-                    <li class="nav-tabs li"><a href="artiste.php">Artiste</a></li>
+                    <li class="nav-tabs li"><a href="artists.php">Artiste</a></li>
                     <?php if(!isset($_SESSION['pseudo'])){ echo '<li class="nav-tabs li"><a href="inscription.php">Inscription</a></li>';}
                      if($isAdmin == 1){echo '<li class="nav-tabs li"><a href="administration.php">Admin</a></li>';}?>
                 </ul>
