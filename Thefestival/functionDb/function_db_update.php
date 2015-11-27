@@ -32,3 +32,10 @@
     $query->bindParam(':id', $id, PDO::PARAM_INT);
     $query->execute();
   }
+
+  function accept_comment_db($idComment)
+  {
+    $query = getDb()->prepare("UPDATE festival.comment SET isValid = 1 WHERE idComment = :id;");
+    $query->bindParam(':id', $idComment, PDO::PARAM_INT);
+    $query->execute();
+  }

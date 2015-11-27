@@ -58,13 +58,19 @@
     {
         global $html;
         $array_result = get_array_comment();
-        $html = "<table><tr><th>Commentaire</th><th>Auteur</th><th>Valider</th>";
-        foreach ($array_result as $value) {
-          $user = get_User_by_id($value['idUser']);
-          $html .= "<tr><td>".$value['content']."</td>";
-          $html .= "<td>".$user['pseudo']."</td>";
-          $html .= "<td><a href=\"administration.php?validComment=".$value['idComment']."\">Oui</a>/<a href=\"administration.php?deleteComment=".$value['idComment']."\">Non</a></td>";
-          $html .= "</tr>";
+        if(count($array_result) > 0)
+        {
+          $html = "<table><tr><th>Commentaire</th><th>Auteur</th><th>Valider</th>";
+          foreach ($array_result as $value) {
+            $user = get_User_by_id($value['idUser']);
+            $html .= "<tr><td>".$value['content']."</td>";
+            $html .= "<td>".$user['pseudo']."</td>";
+            $html .= "<td><a href=\"administration.php?validComment=".$value['idComment']."\">Oui</a>/<a href=\"administration.php?deleteComment=".$value['idComment']."\">Non</a></td>";
+            $html .= "</tr>";
+          }
+        }
+        else {
+          $html = "<h1>Pas de commentaire à valider";
         }
         $html .= "</table><br/>";
     }
@@ -74,6 +80,9 @@
         delete_comment_db($idComment);
     }
 
+    function accept_comment($idComment)
+    {
+       accept_comment_db($idComment);
     }
 
     function modify_artist($mdify, $id)
