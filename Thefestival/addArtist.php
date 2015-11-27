@@ -5,6 +5,13 @@
     * Version : 0.8
      */
     require_once './functionDb/function_db_insert.php';
+    session_start();
+    if(empty($_SESSION['pseudo']) || $_SESSION['isAdmin'] != 1)
+    {
+       session_write_close(); // to be sure
+       header('Location: ./login.php');
+       exit();
+    }
     if(isset($_REQUEST['Ajout']))
     {
       insert_artist($_REQUEST['nom'], $_REQUEST['bio'], $_REQUEST['mgcy']);
