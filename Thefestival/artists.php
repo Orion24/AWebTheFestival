@@ -7,6 +7,7 @@
     include_once './functionDb/function_db_select.php';
     include_once './functionDb/function_db_insert.php';
     $html = "hell0";
+    $commentaire = "";
     session_start();
     $isAdmin = isset($_REQUEST['isAdmin']) ? $_REQUEST['isAdmin'] : false;
 
@@ -47,6 +48,12 @@
       else {
         $html = "<h1>Pas d'artiste sous ce nom là.</h1>";
       }
+      $commentaire = '<form id="form" method="post" action="addComment.php">
+                          <div class="form-group">
+                              <label for="commentaire">Votre Commentaire</label><br /><textarea name="Commentaire" class="form-control" style="height: 138px; width: 250px;" required/></textarea><br/>
+                              <button type="submit" class="btn btn-success" name="Ajout">Ajouter</button>
+                          </div>
+                      </form>';
     }
     else {
       global $html;
@@ -89,6 +96,7 @@
                 {
                   echo '<div class="comment" style="margin-top : 400px;">';
                   echo get_comment();
+                  echo $commentaire;
                   echo '</div>';
                 }?>
          </div>
