@@ -5,7 +5,7 @@
      * Version : 0.8
      */
     session_start();
-    if(empty($_SESSION['pseudo']))
+    if(empty($_SESSION['pseudo']) || $_SESSION['isAdmin'] != 1)
    {
        session_write_close(); // to be sure
        header('Location: ./login.php');
@@ -71,6 +71,8 @@
 
     function delete_comment($idComment)
     {
+        delete_comment_db($idComment);
+    }
 
     }
 
@@ -100,6 +102,36 @@
         $html .= '<button type="submit" class="btn btn-success" name="modifierChamp">Sauvegarder</button>';
         $html .= "</form>";
     }
+    if(isset($_REQUEST['m']) && isset($_REQUEST['id']))
+    {
+       modify_artist($_REQUEST['m'],$_REQUEST['id']);
+    }
+    if(isset($_REQUEST['modifierChamp']) && isset($_REQUEST['type']))
+    {
+        modify_artist_db($_REQUEST['type'],$_REQUEST[$_REQUEST['type']],$_REQUEST['id']);
+        header('Location: administration.php');
+        exit();
+    }
+    /*
+        On vérifie que le paramètre passé dans l'url est bien un entier car l'identifiant est un entier
+     */
+    if(isset($_REQUEST['promote']) && is_numeric($_REQUEST['promote']))
+    {
+        promote_user($_REQUEST['promote']);
+    }
+    if(isset($_REQUEST['delete']) && is_numeric($_REQUEST['delete']))
+    {
+       delete_user($_REQUEST['delete']);
+    }
+    if(isset($_REQUEST['validComment']) && is_numeric($_REQUEST['validComment']))
+    {
+        accept_comment($_REQUEST['validComment']);
+    }
+    if(isset($_REQUEST['deleteComment']) && is_numeric($_REQUEST['deleteComment']))
+    {
+        delete_comment($_REQUEST['deleteComment']);
+    }
+
     if(isset($_REQUEST['v']))
     {
         switch ($_REQUEST['v'])
@@ -119,34 +151,10 @@
               get_comment();
               break;
         }
-    }
-    else {
-        get_comment();
-    }
-    if(isset($_REQUEST['m']) && isset($_REQUEST['id']))
-    {
-       modify_artist($_REQUEST['m'],$_REQUEST['id']);
-    }
-    if(isset($_REQUEST['modifierChamp']) && isset($_REQUEST['type']))
-    {
-        modify_artist_db($_REQUEST['type'],$_REQUEST[$_REQUEST['type']],$_REQUEST['id']);
-        header('Location: administration.php');
-    }
-    /*
-        On vérifie que le paramètre passé dans l'url est bien un entier car l'identifiant est un entier
-     */
-    if(isset($_REQUEST['promote']) && is_numeric($_REQUEST['promote']))
-    {
-        promote_user($_REQUEST['promote']);
-    }
-    if(isset($_REQUEST['delete']) && is_numeric($_REQUEST['delete']))
-    {
-       delete_user($_REQUEST['delete']);
-    }
-    if(isset($_REQUEST['validComment']) && is_numeric($_REQUEST['validComment']))
-    {
-
-    }
+      }
+      else {
+          get_comment();
+      }
 ?>
 <html lang="fr">
     <head>

@@ -12,3 +12,10 @@
       $query->bindParam(':id', $id, PDO::PARAM_INT);
       $query->execute();
     }
+
+    function delete_comment_db($id)
+    {
+      $query = getDb()->prepare("DELETE FROM `festival`.`comment` WHERE `comment`.`idComment` = :id");
+      $query->bindParam(':id', $id, PDO::PARAM_INT);
+      $query->execute();
+    }
