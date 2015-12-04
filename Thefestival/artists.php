@@ -20,13 +20,16 @@
     {
         $idArtist = get_idArtist_by_name($_REQUEST['name']);
         $tab = get_array_comment_artist($idArtist['idArtist']);
+
         if(count($tab) > 0)
         {
           $string = "<table><th>Auteur</th><th>Contenu</th><th>Date</th>";
           foreach ($tab as $value) {
             $string .= "<tr><td>".get_User_by_id($value['idUser'])['pseudo']."</td>";
             $string .= "<td>".$value['content']."</td>";
-            $string .= "<td>".$value['dateCommentaire']."</td></tr>";
+            $date = $value['dateCommentaire'];
+            $date_format = date("d-m-Y", strtotime($date)); //Conversion de année-mois-jour en jour-mois-année (en chiffre)
+            $string .= "<td>".$date_format."</td></tr>";
           }
           $string .= "</table>";
           return $string;
