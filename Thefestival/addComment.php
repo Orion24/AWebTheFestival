@@ -1,28 +1,22 @@
 <?php
-?>
-<html lang="fr">
-    <head>
-        <meta charset="utf8" />
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-        <link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
-    </head>
-    <body>
-        <header>
-            <h1>The Festival</h1>
-            <nav>
-                <ul class="nav nav-tabs">
-                    <li class="nav-tabs li"><a href="index.php">Acceuil</a></li>
-                    <li class="nav-tabs li"><a href="administration.php">Admin</a></li>
-                </ul>
-            </nav>
-        </header>
-        <div class="container">
-            <form id="form" method="post" action="addComment.php">
-                <div class="form-group">
-                    <label for="nom">Nom de l'artiste</label> : <input type="text" name="nom" class="form-control" placeholder="nom de l'artiste" style="width : 160px;" maxlength="25" required/><br />
-                    <button type="submit" class="btn btn-success" name="Ajout">Ajouter</button>
-                </div>
-            </form>
-        </div>
-    </body>
-</html>
+/*
+* Auteur : Bertrand Nicolas
+* Date : 27.11.2015
+* Version : 0.8
+* Note : J'ai décidé de faire l'ajout dans une page à part car la fonction sera appellée à deux endroits différent
+ */
+    require_once './functionDb/function_db_insert.php';
+    function add_comment($content, $idUser, $id, $type)
+    {
+      switch ($type) {
+        case 'a':
+          insert_comment_artist($idUser, $id, $content);
+          break;
+        case 's':
+          insert_comment_schedule($idUser, $id, $content);
+          break;
+        default:
+          throw new Exception("Pas de type correct définis");
+          break;
+        }
+    }

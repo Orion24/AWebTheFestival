@@ -48,10 +48,13 @@
       else {
         $html = "<h1>Pas d'artiste sous ce nom là.</h1>";
       }
-      $commentaire = '<form id="form" method="post" action="addComment.php">
+      $commentaire = '<form id="form" method="post" style="height : 180px;" action="artists.php">
                           <div class="form-group">
-                              <label for="commentaire">Votre Commentaire</label><br /><textarea name="Commentaire" class="form-control" style="height: 138px; width: 250px;" required/></textarea><br/>
-                              <button type="submit" class="btn btn-success" name="Ajout">Ajouter</button>
+                              <label for="contenu">Votre Commentaire</label><br /><textarea name="contenu" class="form-control" style="height: 138px; width: 250px;" required/></textarea><br/>
+                              <input type="hidden" name="type" value="a">
+                              <input type="hidden" name="id" value="'.get_idArtist_by_name($_REQUEST['name'])['idArtist'].'">
+                              <input type="hidden" name="idUser" value="'.$_SESSION['idUser'].'">
+                              <button type="submit" class="btn btn-success" name="AjoutCommentaire">Ajouter</button>
                           </div>
                       </form>';
     }
@@ -67,6 +70,10 @@
          $html .= "</tr>";
       }
       $html .= "</table>";
+    }
+    if(isset($_REQUEST['AjoutCommentaire']))
+    {
+      add_comment($_REQUEST['contenu'], $_REQUEST['id'], $_REQUEST['idUser'], 'a');
     }
  ?>
  <html lang="fr">

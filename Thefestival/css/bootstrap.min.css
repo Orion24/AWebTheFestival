@@ -5137,7 +5137,7 @@ a.badge:hover {
     margin-top: 165px;
     display : block;
     width: 700px;
-    height : 180px;
+    height : auto;
     padding-top: 10px;
     padding-bottom: 5px;
     margin-bottom: 30px;

@@ -5,11 +5,17 @@
     * Version : 0.8
      */
     require_once './functionDb/function_db_select.php';
+    include_once './addComment.php';
     session_start();
     $isAdmin = 0;
     if(isset($_SESSION['isAdmin']))
     {
       $isAdmin = $_SESSION['isAdmin'];
+    }
+
+    if(isset($_REQUEST['AjoutCommentaire']))
+    {
+      add_comment($_REQUEST['contenu'], $_SESSION['idUser'], $_REQUEST['id'], 's');
     }
 
     $artists = "";
@@ -74,7 +80,22 @@
                 </ul>
             </div>
             <div class="comment">
-                    Bonjour
+              <?php
+                  if(!empty($_SESSION['idUser']))
+                  { echo '
+                  <form id="form" method="post" action="index.php" style="height : 180px;">
+                      <div class="form-group" style="margin-left : 10px;">
+                          <label for="contenu">Votre commentaire</label> : <textarea type="text" name="contenu" class="form-control" style="height: 108px; width: 524px;" maxlength="200" required/></textarea>
+                          <input type="hidden" name="type" value="s">
+                          <input type="hidden" name="id" value="0">
+                          <input type="hidden" name="idUser" value="'.$_SESSION['idUser'].'">
+                          <button type="submit" class="btn btn-success" name="AjoutCommentaire">Ajouter</button>
+                      </div>
+                  </form>
+                  ';}
+                  else {
+                    echo '<h2>Vous devez être connecté pour commenter</h2>';
+                  }?>
             </div>
         </div>
     </body>

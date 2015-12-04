@@ -24,10 +24,21 @@
 
   function insert_comment_artist($idUser, $idArtist, $content)
   {
-       $request = getDb()->prepare("INSERT INTO `festival`.`comment` (`idComment`, `idUser`, `idSchedule`, `idArtist`, `dateCommentaire`, `content`, `isArtist`) VALUES (NULL, ':idUser', '', ':idArtist', ':date', ':content', '1');");
+       $date = date("Y-m-j");
+       $request = getDb()->prepare("INSERT INTO `festival`.`comment` (`idComment`, `idUser`, `idSchedule`, `idArtist`, `dateCommentaire`, `content`, `isArtist`) VALUES (NULL, :idUser, 0, :idArtist, :date, :content, 1);");
        $request->bindParam(':content', $content, PDO::PARAM_STR, 200);
        $request->bindParam(':idArtist', $idArtist, PDO::PARAM_INT);
        $request->bindParam(':idUser', $idUser, PDO::PARAM_INT);
-       $request->bindParam(':date', date("Y-m-j"), PDO::PARAM_STR);
+       $request->bindParam(':date', $date, PDO::PARAM_STR);
        $request->execute();
+  }
+
+  function insert_comment_schedule($idUser, $idSchedule, $content)
+  {
+    $request = getDb()->prepare("INSERT INTO `festival`.`comment` (`idComment`, `idUser`, `idSchedule`, `idArtist`, `dateCommentaire`, `content`, `isArtist`) VALUES (NULL, :idUser, :idSchedule, 0, :date, :content, 0);");
+    $request->bindParam(':content', $content, PDO::PARAM_STR, 200);
+    $request->bindParam(':idSchedule', $idSchedule, PDO::PARAM_INT);
+    $request->bindParam(':idUser', $idUser, PDO::PARAM_INT);
+    $request->bindParam(':date', date("Y-m-j"), PDO::PARAM_STR);
+    $request->execute();
   }
