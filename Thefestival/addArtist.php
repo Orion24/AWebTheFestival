@@ -6,7 +6,7 @@
      */
     require_once './functionDb/function_db_insert.php';
     session_start();
-    if(empty($_SESSION['pseudo']) || $_SESSION['isAdmin'] != 1)
+    if(empty($_SESSION['pseudo']) || $_SESSION['isAdmin'] != 1) //Vérification si l'utilisateur est connté et administrateur
     {
        session_write_close(); // to be sure
        header('Location: ./login.php');

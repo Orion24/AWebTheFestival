@@ -7,11 +7,7 @@
     require_once './functionDb/function_db_select.php';
     include_once './addComment.php';
     session_start();
-    $isAdmin = 0;
-    if(isset($_SESSION['isAdmin']))
-    {
-      $isAdmin = $_SESSION['isAdmin'];
-    }
+    $isAdmin = isset($_REQUEST['isAdmin']) ? $_REQUEST['isAdmin'] : false; //condition ternaire : Si la variable existe on lui met sa valeur et elle existe pas on lui met false
 
     if(isset($_REQUEST['AjoutCommentaire']))
     {
@@ -19,8 +15,8 @@
     }
 
     $artists = "";
-    $array_artist = get_name_artist(5);
-    foreach ($array_artist as $value)
+    $array_artist = get_name_artist(5); //On récupère les 5 premier noms
+    foreach ($array_artist as $value) //Pour chaque artiste
     {
       $name = $value['nameArtist'];
       $artists .= '<li><a href="artists.php?name='.$name.'" style="text-decoration:underline";>'.$name.'</a></li>';
@@ -41,8 +37,8 @@
                     <?php if(!isset($_SESSION['pseudo'])){ echo '<li class="nav-tabs li"><a href="inscription.php">Inscription</a></li>';}
                      if($isAdmin == 1){echo '<li class="nav-tabs li"><a href="administration.php">Admin</a></li>';}?>
                 </ul>
-                <?php if(!isset($_SESSION['pseudo'])){ echo '
-                <form class="navbar-form navbar-left" action="login.php" method="post">
+                <?php if(!isset($_SESSION['pseudo'])){ //Si l'utilisateur est  pas connecté
+                    echo '<form class="navbar-form navbar-left" action="login.php" method="post">
                     <div class="form-group">
                         <input type="text" placeholder="Pseudo" class="form-control" name="pseudo">
                     </div>
@@ -81,7 +77,7 @@
             </div>
             <div class="comment">
               <?php
-                  if(!empty($_SESSION['idUser']))
+                  if(!empty($_SESSION['idUser']))//Si un utilisateur est connecté il peut commenter
                   { echo '
                   <form id="form" method="post" action="index.php" style="height : 180px;">
                       <div class="form-group" style="margin-left : 10px;">

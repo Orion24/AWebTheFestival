@@ -5,9 +5,9 @@
      * Version : 0.8
      */
     session_start();
-    if(empty($_SESSION['pseudo']) || $_SESSION['isAdmin'] != 1)
+    if(empty($_SESSION['pseudo']) || $_SESSION['isAdmin'] != 1) //Vérification si l'utilisateur est connté et administrateur
    {
-       session_write_close(); // to be sure
+       session_write_close();
        header('Location: ./login.php');
        exit();
    }
@@ -22,7 +22,7 @@
         global $html;
         $html = "<table><tr><th>Nom de l'utilisateur</th><th>Supprimer le compte</th><th>Promouvoir administrateur</th></tr>";
         $array_result = get_user_info();
-        foreach ($array_result as $value) {
+        foreach ($array_result as $value) { //Pour chaque utilisateurs
            $html .= "<tr>";
            $html .= "<td>".$value['pseudo']."</td>";
            $html .= '<td><button class="btn btn-danger" name="SupressionUser" Onclick="window.location.href=\'administration.php?delete='.$value['idUser'].'\'">Supression</button>';
@@ -42,7 +42,7 @@
         global $html;
         $html = "<table><tr><th>Nom de l'artiste</th><th>Biographie</th><th>Identifiant de vidéo Youtube</th><th>Supression de l'artiste</th>";
         $array_result = get_array_all_artist();
-        foreach ($array_result as $value)
+        foreach ($array_result as $value) //POur chaque utilisateur
         {
            $html .= "<tr>";
            $html .= "<td>".$value['nameArtist']."<br/><a href=\"./administration.php?m=a&id=".$value['idArtist']."\">Modifier</a></td>";
@@ -58,7 +58,7 @@
     {
         global $html;
         $array_result = get_array_comment();
-        if(count($array_result) > 0)
+        if(count($array_result) > 0) //Si il y a des commentaires
         {
           $html = "<table><tr><th>Commentaire</th><th>Auteur</th><th>Valider</th>";
           foreach ($array_result as $value) {
@@ -90,7 +90,7 @@
         global $html;
         $array_result = get_array_artist_id($id);
         $html = '<form method="post">';
-        switch ($mdify)
+        switch ($mdify) //Selon le paramètre donné on affiche le champs correspondant
         {
             case 'a':
                 $html .= '<label for="'.$mdify.'">Artiste : </label><input type=text placeholder="'.$array_result['nameArtist'].'"class="form-control" name="'.$mdify.'">';
@@ -101,7 +101,7 @@
             case 'mgcy':
                 $html .= '<label for="'.$mdify.'">Magic Cookie Youtube : </label><input type=text placeholder="'.$array_result['magicCookieYoutube'].'" class="form-control" name="'.$mdify.'" style="width: 130px;">';
                 break;
-            default :
+            default : //Si aucun corresponds
               header('Location: administration.php');
               exit();
               break;
@@ -122,7 +122,7 @@
         exit();
     }
     /*
-        On vérifie que le paramètre passé dans l'url est bien un entier car l'identifiant est un entier
+     * On vérifie que le paramètre passé dans l'url est bien un entier car l'identifiant est un entier
      */
     if(isset($_REQUEST['promote']) && is_numeric($_REQUEST['promote']))
     {
@@ -143,7 +143,7 @@
 
     if(isset($_REQUEST['v']))
     {
-        switch ($_REQUEST['v'])
+        switch ($_REQUEST['v']) //Selon le paramètre on accède au différente administration
         {
             case 'a':
                 get_artist();
@@ -157,12 +157,12 @@
             case 'c':
                 get_comment();
             default :
-              get_comment();
+              get_comment(); //Par défaut on affiche la gestion des commentaires
               break;
         }
       }
       else {
-          get_comment();
+          get_comment(); //Par défaut on affiche la gestion des commentaires
       }
 ?>
 <html lang="fr">

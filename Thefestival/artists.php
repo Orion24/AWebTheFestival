@@ -9,12 +9,11 @@
     $html = "hell0";
     $commentaire = "";
     session_start();
-    $isAdmin = isset($_REQUEST['isAdmin']) ? $_REQUEST['isAdmin'] : false;
+    $isAdmin = isset($_REQUEST['isAdmin']) ? $_REQUEST['isAdmin'] : false; //condition ternaire : Si la variable existe on lui met sa valeur et elle existe pas on lui met false
 
     function add_comment($content, $idArtist)
     {
        insert_comment_artist($_SESSION['idUser'], $idArtist, $content);
-       session_write_close();
     }
     function get_comment()
     {
@@ -38,40 +37,40 @@
           return "<h1>Pas de commentaire pour le moment</h1>";
         }
     }
-    if(isset($_REQUEST['name']))
+    if(isset($_REQUEST['name'])) //Si on a donné un nom en paramètre (affichage des données de l'artiste)
     {
       global $html;
       $array_result = get_array_artist_name($_REQUEST['name']);
-      if($array_result != false)
+      if($array_result != false) //Si on a trouver un artiste sous ce nom
       {
         $html = "<h1>".$array_result['nameArtist']."</h1>";
         $html .= "<p>".$array_result['bio']."</p>";
         $html .= '<p><iframe width="420" height="315" src="https://www.youtube.com/embed/'.$array_result['magicCookieYoutube'].'" frameborder="0" allowfullscreen></iframe></p>';
+          if(!empty($_SESSION['idUser']))
+          {
+          $commentaire = '<form id="form" method="post" style="height : 180px;" action="artists.php">
+                              <div class="form-group">
+                                  <label for="contenu">Votre Commentaire</label><br /><textarea name="contenu" class="form-control" style="height: 138px; width: 250px;" required/></textarea><br/>
+                                  <input type="hidden" name="type" value="a">
+                                  <input type="hidden" name="id" value="'.get_idArtist_by_name($_REQUEST['name'])['idArtist'].'">
+                                  <input type="hidden" name="idUser" value="'.$_SESSION['idUser'].'">
+                                  <button type="submit" class="btn btn-success" name="AjoutCommentaire">Ajouter</button>
+                              </div>
+                          </form>';
+          }
+          else {
+            $commentaire = "<h2>Pour commenter veuillez vous connecter</h2>";
+          }
       }
       else {
         $html = "<h1>Pas d'artiste sous ce nom là.</h1>";
-      }
-      if(!empty($_SESSION['idUser']))
-      {
-      $commentaire = '<form id="form" method="post" style="height : 180px;" action="artists.php">
-                          <div class="form-group">
-                              <label for="contenu">Votre Commentaire</label><br /><textarea name="contenu" class="form-control" style="height: 138px; width: 250px;" required/></textarea><br/>
-                              <input type="hidden" name="type" value="a">
-                              <input type="hidden" name="id" value="'.get_idArtist_by_name($_REQUEST['name'])['idArtist'].'">
-                              <input type="hidden" name="idUser" value="'.$_SESSION['idUser'].'">
-                              <button type="submit" class="btn btn-success" name="AjoutCommentaire">Ajouter</button>
-                          </div>
-                      </form>';
-      }
-      else {
-        $commentaire = "<h2>Pour commenter veuillez vous connecter</h2>";
       }
     }
     else {
       global $html;
       $html = "<table><tr><th>Nom de l'artiste</th><th>Biographie</th>";
       $array_result = get_array_all_artist();
-      foreach ($array_result as $value)
+      foreach ($array_result as $value) //Pour chaque artistes dans le tableau
       {
          $html .= "<tr>";
          $html .= '<td><a href="artists.php?name='.$value['nameArtist'].'">'.$value['nameArtist'].'</a></td>';
@@ -80,7 +79,7 @@
       }
       $html .= "</table>";
     }
-    if(isset($_REQUEST['AjoutCommentaire']))
+    if(isset($_REQUEST['AjoutCommentaire'])) //Si on a envoyé le formulaire pour les commentaires
     {
       add_comment($_REQUEST['contenu'], $_REQUEST['id'], $_REQUEST['idUser'], 'a');
     }
@@ -96,11 +95,11 @@
              <h1>The Festival</h1>
              <nav>
                  <ul class="nav nav-tabs">
-                   <?php if(!isset($_SESSION['pseudo'])){ echo '<li class="nav-tabs li"><a href="inscription.php">Inscription</a></li>';}
-                    if($isAdmin == 1){echo '<li class="nav-tabs li"><a href="administration.php">Admin</a></li>';}?>
+                   <?php if(!isset($_SESSION['pseudo'])){ echo '<li class="nav-tabs li"><a href="inscription.php">Inscription</a></li>';} //Si nous sommes déjà connecter pas besoins de le refaire
+                    if($isAdmin == 1){echo '<li class="nav-tabs li"><a href="administration.php">Admin</a></li>';} //Si on est administrateur on nous donne l'accès à la page?>
                      <li class="nav-tabs li"><a href="index.php">Acceuil</a></li>
                  </ul>
-                 <?php if(isset($_REQUEST['name'])){ echo '<a href="artists.php">Retour à la liste des artistes</a>';}?>
+                 <?php if(isset($_REQUEST['name'])){ echo '<a href="artists.php">Retour à la liste des artistes</a>';} //Si on est sur un page d'artiste spécifique on peut retourner à la page principale?>
              </nav>
          </header>
          <div class="container">
