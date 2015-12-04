@@ -11,7 +11,7 @@
     {
         $userlogin = login_user($_REQUEST['pseudo'], $_REQUEST['password']);
         $nom = $_REQUEST['pseudo'];
-        if ($userlogin != false) {
+        if ($userlogin != false) { //Si le pseudo et le mot de passe correspond. Si c'est pas le cas la fonction retourne false
             $_SESSION['pseudo'] = $userlogin['pseudo'];
             $_SESSION['isAdmin'] = $userlogin['isAdmin'];
             $_SESSION['idUser'] = $userlogin['idUser'];
@@ -22,7 +22,7 @@
     if(isset($_REQUEST['deconnect']) && $_REQUEST['deconnect'] == "yes")
     {
         session_destroy();
-        session_write_close(); // to be sure
+        session_write_close();
         header('Location: ./index.php');
         exit();
     }

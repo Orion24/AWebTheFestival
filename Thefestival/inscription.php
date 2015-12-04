@@ -5,7 +5,7 @@
     * Version : 0.8
      */
     require_once './functionDb/function_db_insert.php';
-    function testArg($tab) //Check if there are empty cells
+    function testArg($tab) //Vérifie si il y a des cellules vide
     {
         foreach($tab as $value)
         {

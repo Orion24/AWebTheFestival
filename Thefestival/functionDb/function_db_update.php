@@ -19,6 +19,9 @@
         case 'mgcy':
             $name_column = "magicCookieYoutube";
             break;
+        case default:
+          throw new Exception("Pas de type correct définis");
+          break;
     }
     $query = getDb()->prepare("UPDATE festival.artists SET ".$name_column." = :value WHERE artists.idArtist = :id;");
     $query->bindParam(':value', $value, PDO::PARAM_STR);
