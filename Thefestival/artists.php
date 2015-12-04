@@ -51,6 +51,8 @@
       else {
         $html = "<h1>Pas d'artiste sous ce nom là.</h1>";
       }
+      if(!empty($_SESSION['idUser']))
+      {
       $commentaire = '<form id="form" method="post" style="height : 180px;" action="artists.php">
                           <div class="form-group">
                               <label for="contenu">Votre Commentaire</label><br /><textarea name="contenu" class="form-control" style="height: 138px; width: 250px;" required/></textarea><br/>
@@ -60,6 +62,10 @@
                               <button type="submit" class="btn btn-success" name="AjoutCommentaire">Ajouter</button>
                           </div>
                       </form>';
+      }
+      else {
+        $commentaire = "<h2>Pour commenter veuillez vous connecter</h2>";
+      }
     }
     else {
       global $html;
