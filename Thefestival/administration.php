@@ -5,7 +5,7 @@
      * Version : 0.8
      */
     session_start();
-    if(empty($_SESSION['pseudo']) || $_SESSION['isAdmin'] != 1) //Vérification si l'utilisateur est connté et administrateur
+    if(empty($_SESSION['pseudo']) || $_SESSION['isAdmin'] != 1) //Vérification si l'utilisateur est connecté et administrateur
    {
        session_write_close();
        header('Location: ./login.php');

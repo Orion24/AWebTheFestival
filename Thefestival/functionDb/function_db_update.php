@@ -19,7 +19,7 @@
         case 'mgcy':
             $name_column = "magicCookieYoutube";
             break;
-        case default:
+        default:
           throw new Exception("Pas de type correct définis");
           break;
     }

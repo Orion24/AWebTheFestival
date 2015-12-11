@@ -1435,7 +1435,7 @@ li
 }
 .sidebar
 {
-    width: 145px;
+    width: 165px;
     background-color: #181818;
     border-radius: 10px;
     margin-left: 0px;
@@ -5123,7 +5123,7 @@ a.badge:hover {
     margin-left: 3px
 }
 .jumbotron {
-    width: 550px;
+    width: 530px;
     height : 350px;
     padding-top: 0px;
     padding-bottom: 0px;

@@ -9,6 +9,80 @@
     session_start();
     $isAdmin = isset($_REQUEST['isAdmin']) ? $_REQUEST['isAdmin'] : false; //condition ternaire : Si la variable existe on lui met sa valeur et elle existe pas on lui met false
 
+    function get_upcoming_event()
+    {
+      /*
+       * Auteur  : Marin Verstraete
+       * Modifier par : Bertrand Nicolas
+       * Classe  : I.IN-P4B
+       * Date    : 11.12.2015
+       * Version : 1.0
+       */
+
+      include(__DIR__ . '/google-api-php-client-master/src/Google/autoload.php');
+
+      // Le nom de l'application, ne pose pas de problème s'il est faux
+      define('APP_NAME', 'the-festival');
+
+      // La clé serveur de l'application, doit être générée dans
+      // Google Developers Console > Gestionnaire d'API > Identifiants puis
+      // 'Ajouter des identifiants' -> Clé API -> Clé Serveur
+      define('DEV_KEY', 'AIzaSyCKFPxJx50GXgjaX2aBlLgHLob1GblDOUk');
+
+      // L'identifiant du calendrier dont on veux récupérer les évenements
+      // http://wpdocs.philderksen.com/google-calendar-events/getting-started/find-calendar-id/
+      define('CAL_ID', '2uhkj6pjjarjqff9vhsbrjnobs@group.calendar.google.com');
+
+      $client = new Google_Client();
+      $client->setApplicationName(APP_NAME);
+      $client->setDeveloperKey(DEV_KEY);
+
+      $service = new Google_Service_Calendar($client);
+
+      $params = array(
+        // Le nombre max d'évenements (s'il n'est pas présent, tout les évenements sont retournés)
+        'maxResults' => 20,
+
+        // L'ordre des évenements
+        'orderBy' => 'startTime',
+
+        // Ce paramètre permet d'obtenir les evenement depuis aujourd'hui (et pas ceux d'avant)
+        // date('c') formatte la date actuelle conformément à la RFC 2822
+        'timeMin' => date('c'),
+
+        'singleEvents' => TRUE,
+      );
+
+      // Récupération des évenements
+      $events = $service->events->listEvents(CAL_ID, $params);
+
+      if(count($events->getItems()) == 0) {
+        // Pas d'évenements dans le calendrier
+        return 'No upcoming events found.';
+      }
+      else {
+
+        $html = "";
+        foreach($events->getItems() as $event) {
+          // La date de l'évenement
+          $start = $event->start->dateTime;
+
+          if(empty($start)) {
+            $start = $event->start->date;
+          }
+
+          // Je formatte la date pour que ce soit lisible
+          $date = date('d/m à G:i', strtotime($start));
+
+          $artist = $event->getSummary(); //On récupère le nom de l'artiste qui est le nom de l'événement
+          $eventCalendar = '<a href="artists.php?name='.$artist.'">'.$artist.'</a>';
+          $eventCalendar .= " le ".$date;
+			    $html .= "<li>".$eventCalendar."</li>";
+        }
+        return $html;
+      }
+    }
+
     if(isset($_REQUEST['AjoutCommentaire']))
     {
       add_comment($_REQUEST['contenu'], $_SESSION['idUser'], $_REQUEST['id'], 's');
@@ -56,7 +130,7 @@
         </header>
         <div class="container">
             <div class="jumbotron">
-                    Bonjour
+                    <iframe src="https://calendar.google.com/calendar/embed?src=2uhkj6pjjarjqff9vhsbrjnobs%40group.calendar.google.com&ctz=Europe/Zurich" style="border: 0" width="500" height="300" frameborder="0" scrolling="no"></iframe>
             </div>
             <div id="sidebar-wrapper">
                 <ul class="sidebar-nav sidebar">
@@ -68,11 +142,8 @@
                     <?=$artists ?>
                 </ul>
                 <ul class="sidebar-nav sidebar">
-                    <li class="sidebar-brand">
-                        <a href="#">Jours</a>
-                    </li>
-                    <li>Lundi</li>
-                    <li>Mardi</li>
+                    <li>Evenement à venir<li>
+                    <?php echo get_upcoming_event(); ?>
                 </ul>
             </div>
             <div class="comment">
