@@ -7,7 +7,7 @@
     require_once './functionDb/function_db_select.php';
     include_once './addComment.php';
     session_start();
-    $isAdmin = isset($_REQUEST['isAdmin']) ? $_REQUEST['isAdmin'] : false; //condition ternaire : Si la variable existe on lui met sa valeur et elle existe pas on lui met false
+    $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : false; //condition ternaire : Si la variable existe on lui met sa valeur et elle existe pas on lui met false
 
     function get_upcoming_event()
     {

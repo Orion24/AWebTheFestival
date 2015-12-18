@@ -9,7 +9,7 @@
     $html = "hell0";
     $commentaire = "";
     session_start();
-    $isAdmin = isset($_REQUEST['isAdmin']) ? $_REQUEST['isAdmin'] : false; //condition ternaire : Si la variable existe on lui met sa valeur et elle existe pas on lui met false
+    $isAdmin = isset($_SESSION['isAdmin']) ? $_SESSION['isAdmin'] : false; //condition ternaire : Si la variable existe on lui met sa valeur et elle existe pas on lui met false
 
     function add_comment($content, $idArtist)
     {
