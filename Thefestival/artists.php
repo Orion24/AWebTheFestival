@@ -99,17 +99,25 @@
                     if($isAdmin == 1){echo '<li class="nav-tabs li"><a href="administration.php">Admin</a></li>';} //Si on est administrateur on nous donne l'accès à la page?>
                      <li class="nav-tabs li"><a href="index.php">Acceuil</a></li>
                  </ul>
-                 <?php if(isset($_REQUEST['name'])){ echo '<a href="artists.php">Retour à la liste des artistes</a>';} //Si on est sur un page d'artiste spécifique on peut retourner à la page principale?>
+                 <?php
+                 if(isset($_REQUEST['name']))//Si on est sur un page d'artiste spécifique on peut retourner à la page principale
+                 {
+                   echo '<a href="artists.php">Retour à la liste des artistes</a>';
+                 }
+                 else {
+                   echo '<h2> Liste des artistes </h2>';
+                 }
+                 ?>
              </nav>
          </header>
          <div class="container">
-             <div class="jumbotron" style="height : 370px;overflow-y: scroll; width : 700px;">
+             <div class="jumbotron" style="height : 440px;overflow-y: scroll; width : 700px;">
                  <?=$html ?>
              </div>
              <?php
                 if(isset($_REQUEST['name']))
                 {
-                  echo '<div class="comment" style="margin-top : 400px;">';
+                  echo '<div class="comment" style="margin-top : 450px; overflow-y : scroll;">';
                   echo get_comment();
                   echo $commentaire;
                   echo '</div>';
