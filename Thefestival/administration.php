@@ -111,6 +111,31 @@
         $html .= '<button type="submit" class="btn btn-success" name="modifierChamp">Sauvegarder</button>';
         $html .= "</form>";
     }
+
+    if(isset($_REQUEST['v']))
+    {
+        switch ($_REQUEST['v']) //Selon le paramètre on accède au différente administration
+        {
+            case 'a':
+                get_artist();
+                break;
+            case 's':
+                get_schedule();
+                break;
+            case 'u':
+                get_user();
+                break;
+            case 'c':
+                get_comment();
+            default :
+              get_comment(); //Par défaut on affiche la gestion des commentaires
+              break;
+        }
+      }
+      else {
+          get_comment(); //Par défaut on affiche la gestion des commentaires
+      }
+
     if(isset($_REQUEST['m']) && isset($_REQUEST['id']))
     {
        modify_artist($_REQUEST['m'],$_REQUEST['id']);
@@ -140,30 +165,6 @@
     {
         delete_comment($_REQUEST['deleteComment']);
     }
-
-    if(isset($_REQUEST['v']))
-    {
-        switch ($_REQUEST['v']) //Selon le paramètre on accède au différente administration
-        {
-            case 'a':
-                get_artist();
-                break;
-            case 's':
-                get_schedule();
-                break;
-            case 'u':
-                get_user();
-                break;
-            case 'c':
-                get_comment();
-            default :
-              get_comment(); //Par défaut on affiche la gestion des commentaires
-              break;
-        }
-      }
-      else {
-          get_comment(); //Par défaut on affiche la gestion des commentaires
-      }
 ?>
 <html lang="fr">
     <head>
